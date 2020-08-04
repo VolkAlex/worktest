@@ -1,0 +1,18 @@
+#список email'лов встречающихся более чем у одного пользователя
+SELECT	`email`,
+	COUNT(`email`) AS count
+FROM	`user`
+GROUP BY	`email`
+HAVING 	count > 1;
+
+#вывести список логинов пользователей, которые не сделали ни одного заказа
+SELECT `login` from `user` u
+LEFT JOIN `order` ON (u.id = `order`.user_id)
+WHERE `order`.user_id IS NULL;
+
+#вывести список логинов пользователей которые сделали более двух заказов
+SELECT `login` , COUNT(u.`login`) AS count
+from `user` u
+JOIN `order` o ON (u.id = o.user_id)
+GROUP BY	u.`login`
+HAVING 	count > 2;
